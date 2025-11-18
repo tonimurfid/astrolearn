@@ -1,7 +1,7 @@
 {
-  "name": "solar-system-threejs",
+  "name": "astrolearn",
   "version": "1.0.0",
-  "description": "An interactive web project using Three.js to display the Solar System.",
+  "description": "AstroLearn - An interactive educational web project using Three.js to display the Solar System.",
   "main": "src/main.js",
   "scripts": {
     "dev": "vite",

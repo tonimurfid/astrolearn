@@ -14,6 +14,15 @@ export class Controls {
         this.controls.maxDistance = 500; // prevent camera from going too far
         this.controls.maxPolarAngle = Math.PI; // allow full vertical rotation
         this.controls.target.set(0, 0, 0); // focus on the center (Sun)
+        
+        // Touch controls for mobile
+        this.controls.enableZoom = true;
+        this.controls.zoomSpeed = 1.0;
+        this.controls.touches = {
+            ONE: THREE.TOUCH.ROTATE,
+            TWO: THREE.TOUCH.DOLLY_PAN
+        };
+        
         this.controls.update();
         
         this.isFocusing = false; // track if animation is in progress

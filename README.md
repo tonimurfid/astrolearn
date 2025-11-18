@@ -1,6 +1,6 @@
-# Solar System Three.js Project
+# AstroLearn
 
-This project is an interactive web application that visualizes the Solar System using Three.js. It includes the Sun, planets from Mercury to Neptune, and optionally the Moon. The application focuses on performance, responsiveness, and clean code structure.
+AstroLearn is an interactive educational web application that visualizes the Solar System using Three.js. It includes the Sun, planets from Mercury to Neptune, and the Moon. The application focuses on performance, responsiveness, and clean code structure.
 
 ## Features
 
@@ -17,8 +17,8 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
-   cd solar-system-threejs
+   git clone https://github.com/tonimurfid/astrolearn.git
+   cd astrolearn
    ```
 
 2. Install the dependencies:
