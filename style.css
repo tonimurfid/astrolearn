@@ -18,6 +18,79 @@ canvas {
     height: 100%;
 }
 
+/* Logo Header */
+#logo-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+#logo-header:hover {
+    background: rgba(0, 0, 0, 0.85);
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 6px 30px rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
+}
+
+#logo-header .logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.6));
+    animation: rotateLogo 20s linear infinite;
+}
+
+#logo-header .logo-text h1 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+#logo-header .logo-text p {
+    margin: 0;
+    font-size: 0.75em;
+    color: #aaa;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* Info Panel */
 #info-panel {
     position: absolute;
@@ -180,8 +253,28 @@ canvas {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    #info-panel {
+    #logo-header {
         top: 10px;
+        left: 10px;
+        padding: 8px 15px;
+        gap: 10px;
+    }
+    
+    #logo-header .logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    #logo-header .logo-text h1 {
+        font-size: 1.2em;
+    }
+    
+    #logo-header .logo-text p {
+        font-size: 0.7em;
+    }
+    
+    #info-panel {
+        top: 70px;
         right: 10px;
         left: 10px;
         max-width: none;
@@ -217,8 +310,29 @@ canvas {
 
 /* Extra small devices (phones in portrait) */
 @media (max-width: 480px) {
-    #info-panel {
+    #logo-header {
         top: 5px;
+        left: 5px;
+        padding: 6px 12px;
+        gap: 8px;
+        border-radius: 30px;
+    }
+    
+    #logo-header .logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    #logo-header .logo-text h1 {
+        font-size: 1em;
+    }
+    
+    #logo-header .logo-text p {
+        font-size: 0.65em;
+    }
+    
+    #info-panel {
+        top: 60px;
         right: 5px;
         left: 5px;
         padding: 12px;
@@ -281,6 +395,24 @@ canvas {
 
 /* Large desktop */
 @media (min-width: 1920px) {
+    #logo-header {
+        padding: 15px 25px;
+        gap: 18px;
+    }
+    
+    #logo-header .logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    #logo-header .logo-text h1 {
+        font-size: 1.8em;
+    }
+    
+    #logo-header .logo-text p {
+        font-size: 0.8em;
+    }
+    
     #info-panel {
         max-width: 450px;
         font-size: 1.1em;

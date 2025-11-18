@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/',
+  publicDir: 'public',
   server: {
     open: true, // Automatically open the app in the browser
   },
