@@ -12,6 +12,129 @@ body {
     color: #fff;
 }
 
+/* Splash Screen */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.splash-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    animation: logoFloat 3s ease-in-out infinite, logoPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.8));
+}
+
+.splash-title {
+    font-size: 3.5em;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+    letter-spacing: 2px;
+}
+
+.splash-subtitle {
+    font-size: 1.2em;
+    color: #aaa;
+    margin: 0;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(102, 126, 234, 0.2);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    font-size: 0.9em;
+    color: #888;
+    margin: 0;
+    animation: textPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
 canvas {
     display: block;
     width: 100%;
@@ -255,6 +378,19 @@ canvas {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .splash-logo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .splash-title {
+        font-size: 2.5em;
+    }
+    
+    .splash-subtitle {
+        font-size: 1em;
+    }
+    
     #logo-header {
         top: 10px;
         left: 10px;
@@ -312,6 +448,25 @@ canvas {
 
 /* Extra small devices (phones in portrait) */
 @media (max-width: 480px) {
+    .splash-logo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .splash-title {
+        font-size: 2em;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.9em;
+        margin-bottom: 30px;
+    }
+    
+    .spinner {
+        width: 40px;
+        height: 40px;
+    }
+    
     #logo-header {
         top: 5px;
         left: 5px;

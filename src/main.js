@@ -42,8 +42,25 @@ class SolarSystemApp {
         // Setup event listeners
         this.setupEventListeners();
         
+        // Hide splash screen after everything is loaded
+        this.hideSplashScreen();
+        
         // Start animation
         this.animate();
+    }
+
+    hideSplashScreen() {
+        const splashScreen = document.getElementById('splash-screen');
+        if (splashScreen) {
+            // Add a small delay for smooth transition
+            setTimeout(() => {
+                splashScreen.classList.add('hidden');
+                // Remove from DOM after animation completes
+                setTimeout(() => {
+                    splashScreen.remove();
+                }, 800);
+            }, 500);
+        }
     }
 
     setupEventListeners() {
