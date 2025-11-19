@@ -10,6 +10,7 @@ export class PlanetSystem {
         this.textureLoader = new THREE.TextureLoader();
         this.timeSpeed = 1; // days per second
         this.isPaused = false;
+        this.rotationSpeedMultiplier = 50; // Multiply rotation speed for visual effect
         
         // Fallback colors if textures fail to load
         this.fallbackColors = {
@@ -264,12 +265,12 @@ export class PlanetSystem {
             
             if (userData.isStar) {
                 // Sun only rotates
-                planet.rotation.y += (2 * Math.PI / (userData.rotationPeriod * 3600)) * deltaTime * this.timeSpeed;
+                planet.rotation.y += (2 * Math.PI / (userData.rotationPeriod * 3600)) * deltaTime * this.timeSpeed * this.rotationSpeedMultiplier;
                 return;
             }
             
-            // Rotate planet on its axis
-            planet.rotation.y += (2 * Math.PI / (userData.rotationPeriod * 3600)) * deltaTime * this.timeSpeed;
+            // Rotate planet on its axis (with visual speed multiplier for visibility)
+            planet.rotation.y += (2 * Math.PI / (userData.rotationPeriod * 3600)) * deltaTime * this.timeSpeed * this.rotationSpeedMultiplier;
             
             // Handle satellites (like Moon orbiting Earth)
             if (userData.isSatellite && userData.parent) {
