@@ -135,6 +135,11 @@ export class PlanetSystem {
         this.scene.add(planet);
         this.planets.push(planet);
         
+        // Add ring for Saturn
+        if (planetData.id === 'saturn') {
+            await this.createSaturnRing(planet, planetData.relative_scale);
+        }
+        
         // Create orbit path (skip for Sun and satellites)
         if (!isStar && !isSatellite && planetData.orbital_radius_au > 0) {
             this.createOrbitPath(planet.userData.orbitalRadius);
@@ -144,6 +149,51 @@ export class PlanetSystem {
         this.createLabel(planet, planetData.name);
         
         return planet;
+    }
+
+    /**
+     * Create Saturn's ring system
+     * @param {THREE.Mesh} planet - Saturn planet mesh
+     * @param {number} planetRadius - Saturn's radius for ring sizing
+     */
+    async createSaturnRing(planet, planetRadius) {
+        const ringTexture = await this.loadTextureWithFallback(
+            '/assets/textures/saturn_ring_alpha.png',
+            'saturn'
+        );
+        
+        // Ring dimensions (relative to planet radius)
+        const innerRadius = planetRadius * 1.2;
+        const outerRadius = planetRadius * 2.2;
+        
+        const ringGeometry = new THREE.RingGeometry(innerRadius, outerRadius, 64);
+        
+        // Adjust UV coordinates for proper texture mapping
+        const pos = ringGeometry.attributes.position;
+        const uv = ringGeometry.attributes.uv;
+        const v3 = new THREE.Vector3();
+        
+        for (let i = 0; i < pos.count; i++) {
+            v3.fromBufferAttribute(pos, i);
+            uv.setXY(i, v3.length() < (innerRadius + outerRadius) / 2 ? 0 : 1, 1);
+        }
+        
+        const ringMaterial = new THREE.MeshStandardMaterial({
+            map: ringTexture,
+            color: ringTexture ? 0xffffff : 0xFAD5A5,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.8,
+            roughness: 0.8,
+            metalness: 0.1
+        });
+        
+        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+        ring.rotation.x = Math.PI / 2; // Rotate to horizontal plane
+        ring.rotation.y = 0.3; // Slight tilt for visual effect
+        
+        planet.add(ring);
+        planet.userData.ring = ring;
     }
 
     createOrbitPath(radius) {
