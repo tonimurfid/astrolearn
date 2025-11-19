@@ -55,6 +55,10 @@ class SolarSystemApp {
         
         // Mouse move for hover effects
         window.addEventListener('mousemove', (e) => this.onMouseMove(e));
+        
+        // Touch events for mobile
+        window.addEventListener('touchstart', (e) => this.onTouchStart(e));
+        window.addEventListener('touchmove', (e) => this.onTouchMove(e));
     }
 
     onWindowResize() {
@@ -105,6 +109,63 @@ class SolarSystemApp {
             const planet = intersects[0].object;
             this.ui.showPlanetInfo(planet);
             this.controls.focusOnPlanet(planet, 2000);
+        }
+    }
+
+    onTouchStart(event) {
+        // Prevent default to avoid double-firing on mobile
+        if (event.touches.length === 1) {
+            event.preventDefault();
+            
+            const touch = event.touches[0];
+            
+            // Calculate touch position in normalized device coordinates
+            this.mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+            this.mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+            
+            // Update raycaster
+            this.raycaster.setFromCamera(this.mouse, this.sceneManager.camera);
+            
+            // Check for intersections
+            const intersects = this.raycaster.intersectObjects(this.planetSystem.planets);
+            
+            if (intersects.length > 0) {
+                const planet = intersects[0].object;
+                this.ui.showPlanetInfo(planet);
+                this.controls.focusOnPlanet(planet, 2000);
+            }
+        }
+    }
+
+    onTouchMove(event) {
+        // Handle touch move for hover-like effects on mobile
+        if (event.touches.length === 1) {
+            const touch = event.touches[0];
+            
+            // Calculate touch position
+            this.mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+            this.mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+            
+            // Update raycaster
+            this.raycaster.setFromCamera(this.mouse, this.sceneManager.camera);
+            
+            // Check for intersections with planets
+            const intersects = this.raycaster.intersectObjects(this.planetSystem.planets);
+            
+            // Hide previous hover label
+            if (this.hoveredPlanet && !intersects.find(i => i.object === this.hoveredPlanet)) {
+                this.planetSystem.showLabel(this.hoveredPlanet, false);
+                this.hoveredPlanet = null;
+            }
+            
+            // Show new hover label
+            if (intersects.length > 0) {
+                const planet = intersects[0].object;
+                if (planet !== this.hoveredPlanet) {
+                    this.hoveredPlanet = planet;
+                    this.planetSystem.showLabel(planet, true);
+                }
+            }
         }
     }
 

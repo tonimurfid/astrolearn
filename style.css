@@ -16,6 +16,8 @@ canvas {
     display: block;
     width: 100%;
     height: 100%;
+    touch-action: none; /* Allow touch interactions for Three.js */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
 /* Logo Header */
