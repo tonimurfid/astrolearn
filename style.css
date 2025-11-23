@@ -174,7 +174,6 @@ canvas {
     height: 50px;
     object-fit: contain;
     filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.6));
-    animation: rotateLogo 20s linear infinite;
 }
 
 #logo-header .logo-text h1 {
@@ -204,15 +203,6 @@ canvas {
     to {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-@keyframes rotateLogo {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
     }
 }
 
