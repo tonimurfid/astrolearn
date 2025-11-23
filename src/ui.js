@@ -1,26 +1,34 @@
 // src/ui.js - DOM-based UI without external dependencies
 
+import { PlanetInfo } from './planetInfo.js';
+
 export class UI {
     constructor(planetSystem, controls) {
         this.planetSystem = planetSystem;
         this.controls = controls;
         this.isPaused = false;
-        this.currentPlanet = null;
+        this.planetInfo = new PlanetInfo(planetSystem);
         
+        this.setupPlanetInfoCallbacks();
         this.createUI();
         this.setupKeyboardControls();
     }
 
-    createUI() {
-        // Info Panel
-        this.infoPanel = document.getElementById('info-panel');
-        if (!this.infoPanel) {
-            this.infoPanel = document.createElement('div');
-            this.infoPanel.id = 'info-panel';
-            document.body.appendChild(this.infoPanel);
-        }
-        this.infoPanel.style.display = 'none';
+    setupPlanetInfoCallbacks() {
+        this.planetInfo.onPause(() => {
+            this.planetSystem.setPaused(true);
+            const btn = document.getElementById('play-pause-btn');
+            if (btn) btn.textContent = '▶ Play';
+        });
 
+        this.planetInfo.onResume(() => {
+            this.planetSystem.setPaused(false);
+            const btn = document.getElementById('play-pause-btn');
+            if (btn) btn.textContent = '⏸ Pause';
+        });
+    }
+
+    createUI() {
         // Controls Panel
         const controlsPanel = document.createElement('div');
         controlsPanel.id = 'controls';
@@ -78,14 +86,14 @@ export class UI {
             if (planetMap[e.code]) {
                 const planet = this.planetSystem.getPlanetById(planetMap[e.code]);
                 if (planet) {
-                    this.showPlanetInfo(planet);
+                    this.planetInfo.show(planet);
                     this.controls.focusOnPlanet(planet, 2000);
                 }
             }
             
             // Escape: Close info panel
             if (e.code === 'Escape') {
-                this.hideInfo();
+                this.planetInfo.hide();
             }
         });
     }
@@ -98,51 +106,15 @@ export class UI {
 
     resetView() {
         this.controls.resetCamera(2000);
-        this.hideInfo();
+        this.planetInfo.hide();
     }
 
     showPlanetInfo(planet) {
-        const userData = planet.userData;
-        this.currentPlanet = planet;
-        
-        // Pause animation when viewing planet info
-        this.planetSystem.setPaused(true);
-        const btn = document.getElementById('play-pause-btn');
-        if (btn) btn.textContent = '▶ Play';
-        
-        this.infoPanel.innerHTML = `
-            <div class="info-header">
-                <h2>${userData.name}</h2>
-                <button id="close-info" style="float: right; background: transparent; border: none; font-size: 1.5em; cursor: pointer;">&times;</button>
-            </div>
-            <div class="info-content">
-                ${userData.isStar ? 
-                    `<p><strong>Type:</strong> Star</p>` : 
-                    userData.isSatellite ?
-                    `<p><strong>Orbits:</strong> ${userData.parent ? userData.parent.charAt(0).toUpperCase() + userData.parent.slice(1) : 'Earth'}</p>
-                     <p><strong>Orbital Period:</strong> ${userData.orbitalPeriod.toFixed(1)} days</p>` :
-                    `<p><strong>Distance from Sun:</strong> ${(userData.orbitalRadius / 30).toFixed(2)} AU</p>
-                     <p><strong>Orbital Period:</strong> ${userData.orbitalPeriod.toFixed(1)} days (${(userData.orbitalPeriod / 365.25).toFixed(2)} years)</p>`
-                }
-                <p><strong>Diameter:</strong> ${userData.diameter_km.toLocaleString()} km</p>
-                <p><strong>Rotation Period:</strong> ${userData.rotationPeriod.toFixed(1)} hours (${(userData.rotationPeriod / 24).toFixed(2)} days)</p>
-                <p class="description">${userData.description}</p>
-            </div>
-        `;
-        
-        this.infoPanel.style.display = 'block';
-        
-        document.getElementById('close-info').addEventListener('click', () => this.hideInfo());
+        this.planetInfo.show(planet);
     }
 
     hideInfo() {
-        this.infoPanel.style.display = 'none';
-        this.currentPlanet = null;
-        
-        // Resume animation when closing info
-        this.planetSystem.setPaused(false);
-        const btn = document.getElementById('play-pause-btn');
-        if (btn) btn.textContent = '⏸ Pause';
+        this.planetInfo.hide();
     }
 
     showLabel(planet, show) {
