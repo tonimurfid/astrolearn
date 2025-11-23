@@ -227,7 +227,7 @@ canvas {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
     z-index: 100;
-    max-width: 350px;
+    width: 400px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: none;
 }
@@ -245,8 +245,47 @@ canvas {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+#info-panel h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.3em;
+    color: #667eea;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#info-panel .info-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#info-panel .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+#info-panel .tab-btn:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+#info-panel .tab-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
 #info-panel .info-content {
     line-height: 1.6;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 #info-panel p {
@@ -261,11 +300,28 @@ canvas {
 }
 
 #info-panel .description {
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-style: italic;
     color: #bbb;
+    line-height: 1.5;
+}
+
+#info-panel .fun-facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#info-panel .fun-facts li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: rgba(102, 126, 234, 0.1);
+    border-left: 3px solid #667eea;
+    border-radius: 5px;
+    color: #ddd;
+    font-size: 0.95em;
     line-height: 1.5;
 }
 

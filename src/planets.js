@@ -116,12 +116,14 @@ export class PlanetSystem {
         planet.userData = {
             id: planetData.id,
             name: planetData.name,
-            orbitalRadius: isSatellite ? (planetData.orbital_radius_earth || 5) : (planetData.orbital_radius_au * 50), // Increased scale from 30 to 50
+            orbitalRadius: isSatellite ? (planetData.orbital_radius_earth || 5) : (planetData.orbital_radius_au * 50),
             orbitalPeriod: planetData.orbital_period_days,
             rotationPeriod: planetData.rotation_period_hours,
-            currentAngle: Math.random() * Math.PI * 2, // Random starting position
+            currentAngle: Math.random() * Math.PI * 2,
             description: planetData.description,
             diameter_km: planetData.diameter_km,
+            classification: planetData.classification,
+            fun_facts: planetData.fun_facts,
             isStar: isStar,
             isSatellite: isSatellite,
             parent: planetData.parent || null
