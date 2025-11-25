@@ -36,7 +36,7 @@ export class PlanetInfo {
 
     renderPage() {
         const userData = this.currentPlanet.userData;
-        const pages = ['Overview', 'Fun Facts', 'Technical'];
+        const pages = ['Gambaran', 'Fakta Seru', 'Data Teknis'];
         
         let content = '';
         
@@ -77,23 +77,23 @@ export class PlanetInfo {
 
     renderOverview(userData) {
         return `
-            <h3>Overview</h3>
+            <h3>Gambaran</h3>
             <p class="description">${userData.description}</p>
             ${userData.isStar ? 
-                `<p><strong>Type:</strong> Star</p>` : 
+                `<p><strong>Jenis:</strong> Bintang</p>` : 
                 userData.isSatellite ?
-                `<p><strong>Type:</strong> Natural Satellite</p>
-                 <p><strong>Parent Body:</strong> ${userData.parent ? userData.parent.charAt(0).toUpperCase() + userData.parent.slice(1) : 'Earth'}</p>` :
-                `<p><strong>Type:</strong> Planet</p>
-                 <p><strong>Classification:</strong> ${userData.classification || 'Unknown'}</p>`
+                `<p><strong>Jenis:</strong> Satelit Alami</p>
+                 <p><strong>Mengelilingi:</strong> ${userData.parent ? userData.parent.charAt(0).toUpperCase() + userData.parent.slice(1) : 'Bumi'}</p>` :
+                `<p><strong>Jenis:</strong> Planet</p>
+                 <p><strong>Tipe:</strong> ${userData.classification || 'Tidak Diketahui'}</p>`
             }
         `;
     }
 
     renderFunFacts(userData) {
-        const facts = userData.fun_facts || ['No fun facts available yet!'];
+        const facts = userData.fun_facts || ['Belum ada fakta seru!'];
         return `
-            <h3>Fun Facts</h3>
+            <h3>Fakta Seru</h3>
             <ul class="fun-facts">
                 ${facts.map(fact => `<li>${fact}</li>`).join('')}
             </ul>
@@ -102,17 +102,17 @@ export class PlanetInfo {
 
     renderTechnical(userData) {
         return `
-            <h3>Technical Information</h3>
+            <h3>Data Teknis</h3>
             ${userData.isStar ? 
-                `<p><strong>Type:</strong> Star</p>` : 
+                `<p><strong>Jenis:</strong> Bintang</p>` : 
                 userData.isSatellite ?
-                `<p><strong>Orbits:</strong> ${userData.parent ? userData.parent.charAt(0).toUpperCase() + userData.parent.slice(1) : 'Earth'}</p>
-                 <p><strong>Orbital Period:</strong> ${userData.orbitalPeriod.toFixed(1)} days</p>` :
-                `<p><strong>Distance from Sun:</strong> ${(userData.orbitalRadius / 50).toFixed(2)} AU</p>
-                 <p><strong>Orbital Period:</strong> ${userData.orbitalPeriod.toFixed(1)} days (${(userData.orbitalPeriod / 365.25).toFixed(2)} years)</p>`
+                `<p><strong>Mengelilingi:</strong> ${userData.parent ? userData.parent.charAt(0).toUpperCase() + userData.parent.slice(1) : 'Bumi'}</p>
+                 <p><strong>Waktu Mengelilingi:</strong> ${userData.orbitalPeriod.toFixed(1)} hari</p>` :
+                `<p><strong>Jarak dari Matahari:</strong> ${(userData.orbitalRadius / 50).toFixed(2)} AU</p>
+                 <p><strong>Waktu Mengelilingi Matahari:</strong> ${userData.orbitalPeriod.toFixed(1)} hari (${(userData.orbitalPeriod / 365.25).toFixed(2)} tahun)</p>`
             }
-            <p><strong>Diameter:</strong> ${userData.diameter_km.toLocaleString()} km</p>
-            <p><strong>Rotation Period:</strong> ${userData.rotationPeriod.toFixed(1)} hours (${(userData.rotationPeriod / 24).toFixed(2)} days)</p>
+            <p><strong>Ukuran:</strong> ${userData.diameter_km.toLocaleString()} km</p>
+            <p><strong>Waktu Berputar:</strong> ${userData.rotationPeriod.toFixed(1)} jam (${(userData.rotationPeriod / 24).toFixed(2)} hari)</p>
         `;
     }
 

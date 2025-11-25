@@ -18,13 +18,13 @@ export class UI {
         this.planetInfo.onPause(() => {
             this.planetSystem.setPaused(true);
             const btn = document.getElementById('play-pause-btn');
-            if (btn) btn.textContent = '▶ Play';
+            if (btn) btn.textContent = '▶ Mainkan';
         });
 
         this.planetInfo.onResume(() => {
             this.planetSystem.setPaused(false);
             const btn = document.getElementById('play-pause-btn');
-            if (btn) btn.textContent = '⏸ Pause';
+            if (btn) btn.textContent = '⏸ Jeda';
         });
     }
 
@@ -33,18 +33,18 @@ export class UI {
         const controlsPanel = document.createElement('div');
         controlsPanel.id = 'controls';
         controlsPanel.innerHTML = `
-            <button id="play-pause-btn">⏸ Pause</button>
-            <button id="reset-btn">🔄 Reset View</button>
+            <button id="play-pause-btn">⏸ Jeda</button>
+            <button id="reset-btn">🔄 Lihat Semua</button>
             <div style="margin-top: 10px;">
-                <label for="speed-slider">Time Speed: <span id="speed-value">1</span>x</label>
+                <label for="speed-slider">Kecepatan: <span id="speed-value">1</span>x</label>
                 <input type="range" id="speed-slider" min="0" max="100" value="10" step="1">
             </div>
             <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                <strong>Controls:</strong><br>
-                🖱 Drag: Rotate | Scroll: Zoom<br>
-                🎯 Click planet: Focus<br>
-                ⌨ Space: Play/Pause<br>
-                ⌨ 1-9: Quick Focus
+                <strong>Cara Main:</strong><br>
+                🖱 Tarik: Putar | Scroll: Zoom<br>
+                🎯 Klik planet: Lihat lebih dekat<br>
+                ⌨ Spasi: Jeda/Mainkan<br>
+                ⌨ Angka 1-9: Pilih planet
             </div>
         `;
         document.body.appendChild(controlsPanel);
@@ -101,7 +101,7 @@ export class UI {
     togglePlayPause() {
         this.isPaused = this.planetSystem.togglePause();
         const btn = document.getElementById('play-pause-btn');
-        btn.textContent = this.isPaused ? '▶ Play' : '⏸ Pause';
+        btn.textContent = this.isPaused ? '▶ Mainkan' : '⏸ Jeda';
     }
 
     resetView() {
